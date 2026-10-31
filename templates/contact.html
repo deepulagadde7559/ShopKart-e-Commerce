@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | ShopKart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .contact-page {
+            max-width: 1100px;
+            margin: 55px auto;
+            padding: 0 24px 60px;
+        }
+
+        .contact-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-heading h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+            color: #203d3a;
+        }
+
+        .contact-heading p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 35px;
+            align-items: start;
+        }
+
+        .contact-info,
+        .contact-form-card {
+            padding: 32px;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .contact-info h2,
+        .contact-form-card h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #203d3a;
+            font-size: 23px;
+        }
+
+        .contact-info > p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .contact-detail {
+            margin-top: 24px;
+        }
+
+        .contact-detail h3 {
+            font-size: 15px;
+            margin-bottom: 7px;
+            color: #203d3a;
+        }
+
+        .contact-detail p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .contact-form-group {
+            margin-bottom: 19px;
+        }
+
+        .contact-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .contact-form-group input,
+        .contact-form-group textarea,
+        .contact-form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d8d8d8;
+            border-radius: 6px;
+            font: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        .contact-form-group input:focus,
+        .contact-form-group textarea:focus,
+        .contact-form-group select:focus {
+            outline: 2px solid #c5d9d5;
+            border-color: #315d56;
+        }
+
+        .contact-form-group textarea {
+            min-height: 145px;
+            resize: vertical;
+        }
+
+        .contact-submit {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #203d3a;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .contact-submit:hover {
+            background: #315d56;
+        }
+
+        .contact-note {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+            .contact-page {
+                margin-top: 35px;
+                padding: 0 16px 40px;
+            }
+
+            .contact-heading h1 {
+                font-size: 30px;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-info,
+            .contact-form-card {
+                padding: 23px;
+            }
+        }
+
+        .contact-alert {
+    padding: 13px 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.contact-alert-success {
+    background: #edf8ef;
+    color: #216b35;
+    border: 1px solid #b9e3c2;
+}
+
+.contact-alert-error {
+    background: #fff1f0;
+    color: #a12622;
+    border: 1px solid #f0c0bd;
+}
+    </style>
+</head>
+
+<body>
+
+    <main class="contact-page">
+
+        <section class="contact-heading">
+            <h1>Get in Touch</h1>
+            <p>
+                Have a question about your order or our products?
+                We are here to help.
+            </p>
+        </section>
+
+        <div class="contact-layout">
+
+            <section class="contact-info">
+                <h2>Contact Information</h2>
+
+                <p>
+                    Need help with shopping, delivery, or a product?
+                    Send us a message using the form and tell us how we can help.
+                </p>
+
+                <div class="contact-detail">
+                    <h3>Customer Support</h3>
+                    <p>For questions about products and orders.</p>
+                </div>
+
+                <div class="contact-detail">
+                    <h3>Order Assistance</h3>
+                    <p>Include your order ID in your message if you need help with an existing order.</p>
+                </div>
+
+                <div class="contact-detail">
+                    <h3>Response Time</h3>
+                    <p>We will review your message and respond when support is available.</p>
+                </div>
+            </section>
+
+            <section class="contact-form-card">
+                <h2>Send Us a Message</h2>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                <div class="contact-alert contact-alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                <form action="{{ url_for('contact') }}" method="POST">
+
+                    <div class="contact-form-group">
+                        <label for="name">Full Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            maxlength="100"
+                            autocomplete="name"
+                            placeholder="Enter your full name"
+                            required>
+                    </div>
+
+                    <div class="contact-form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            maxlength="254"
+                            autocomplete="email"
+                            placeholder="you@example.com"
+                            required>
+                    </div>
+
+                    <div class="contact-form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="Product Enquiry">Product Enquiry</option>
+                            <option value="Order Support">Order Support</option>
+                            <option value="Shipping and Delivery">Shipping and Delivery</option>
+                            <option value="Returns and Refunds">Returns and Refunds</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="contact-form-group">
+                        <label for="message">Message</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            maxlength="3000"
+                            placeholder="How can we help you?"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="contact-submit">
+                        Send Message
+                    </button>
+
+                    <p class="contact-note">
+                        Please do not include passwords, card details, or other sensitive information.
+                    </p>
+
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+</body>
+</html>

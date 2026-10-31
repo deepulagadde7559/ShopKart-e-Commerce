@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Confirmed | ShopKart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .success-page {
+            max-width: 900px;
+            margin: 45px auto;
+            padding: 0 20px 60px;
+            color: #24382f;
+        }
+
+        .success-card {
+            background: #fff;
+            border: 1px solid #e8e8e3;
+            border-radius: 16px;
+            padding: 35px;
+        }
+
+        .success-header {
+            text-align: center;
+            padding: 15px 10px 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .success-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: #e8f3e9;
+            color: #234d3a;
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .success-header h1 {
+            font-size: 32px;
+            margin: 0 0 12px;
+        }
+
+        .success-header p {
+            color: #777;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .order-reference {
+            margin-top: 24px;
+            padding: 17px;
+            background: #f5f7f2;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .order-reference span {
+            display: block;
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .order-reference strong {
+            font-size: 19px;
+            overflow-wrap: anywhere;
+        }
+
+        .success-section {
+            padding: 25px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .success-section h2 {
+            font-size: 20px;
+            margin: 0 0 20px;
+        }
+
+        .order-product {
+            display: grid;
+            grid-template-columns: 70px 1fr auto;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 0;
+        }
+
+        .order-product img {
+            width: 70px;
+            height: 70px;
+            border-radius: 9px;
+            object-fit: cover;
+            background: #f5f5f0;
+        }
+
+        .order-product h3 {
+            font-size: 15px;
+            margin: 0 0 7px;
+        }
+
+        .order-product p {
+            color: #777;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .order-product-price {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .customer-details {
+            color: #555;
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+        }
+
+        .customer-details strong {
+            color: #24382f;
+        }
+
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 15px 0;
+            color: #666;
+        }
+
+        .amount-total {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-top: 20px;
+            font-size: 21px;
+            font-weight: 700;
+            color: #24382f;
+        }
+
+        .order-status {
+            display: inline-block;
+            background: #e8f3e9;
+            color: #234d3a;
+            border-radius: 20px;
+            padding: 7px 13px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .success-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .success-button {
+            flex: 1;
+            min-width: 180px;
+            box-sizing: border-box;
+            padding: 14px 18px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: #234d3a;
+            color: #fff;
+        }
+
+        .secondary-button {
+            border: 1px solid #234d3a;
+            color: #234d3a;
+            background: #fff;
+        }
+
+        .loading-message,
+        .error-message {
+            text-align: center;
+            padding: 40px 15px;
+            line-height: 1.7;
+        }
+
+        .error-message {
+            color: #a52c2c;
+        }
+
+        @media (max-width: 550px) {
+            .success-page {
+                margin-top: 25px;
+                padding: 0 12px 35px;
+            }
+
+            .success-card {
+                padding: 20px;
+            }
+
+            .success-header h1 {
+                font-size: 26px;
+            }
+
+            .order-product {
+                grid-template-columns: 58px 1fr;
+                gap: 12px;
+            }
+
+            .order-product img {
+                width: 58px;
+                height: 58px;
+            }
+
+            .order-product-price {
+                grid-column: 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="success-page">
+
+    <div class="success-card" id="confirmationContent">
+        <div class="loading-message">
+            Loading your order details...
+        </div>
+    </div>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/order_success.js') }}"></script>
+
+</body>
+</html>

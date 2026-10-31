@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs | ShopKart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .faq-page {
+            max-width: 900px;
+            margin: 55px auto 80px;
+            padding: 0 24px;
+        }
+
+        .faq-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .faq-heading .eyebrow {
+            color: #55766f;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .faq-heading h1 {
+            color: #203d3a;
+            font-size: 38px;
+            margin: 12px 0;
+        }
+
+        .faq-heading p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .faq-search {
+            max-width: 600px;
+            margin: 25px auto 35px;
+        }
+
+        .faq-search input {
+            width: 100%;
+            padding: 15px 17px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        .faq-search input:focus {
+            outline: 2px solid #c5d9d5;
+            border-color: #315d56;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .faq-item {
+            border: 1px solid #e5e5e5;
+            border-radius: 9px;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px 22px;
+            border: none;
+            background: #fff;
+            color: #203d3a;
+            text-align: left;
+            font: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .faq-question:hover {
+            background: #fafbf9;
+        }
+
+        .faq-icon {
+            flex-shrink: 0;
+            font-size: 22px;
+            font-weight: 400;
+            transition: transform 0.2s ease;
+        }
+
+        .faq-question[aria-expanded="true"] .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 22px 21px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .faq-answer[hidden] {
+            display: none;
+        }
+
+        .faq-empty {
+            padding: 25px;
+            text-align: center;
+            color: #777;
+        }
+
+        .faq-contact {
+            margin-top: 42px;
+            padding: 30px;
+            border-radius: 10px;
+            background: #f6f8f6;
+            text-align: center;
+        }
+
+        .faq-contact h2 {
+            color: #203d3a;
+            font-size: 22px;
+            margin: 0 0 10px;
+        }
+
+        .faq-contact p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .faq-contact a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 22px;
+            border-radius: 6px;
+            background: #203d3a;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .faq-contact a:hover {
+            background: #315d56;
+        }
+
+        @media (max-width: 600px) {
+            .faq-page {
+                margin-top: 35px;
+                padding: 0 16px;
+            }
+
+            .faq-heading h1 {
+                font-size: 30px;
+            }
+
+            .faq-question {
+                padding: 17px;
+                font-size: 14px;
+            }
+
+            .faq-answer {
+                padding: 0 17px 18px;
+            }
+
+            .faq-contact {
+                padding: 23px 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="faq-page">
+
+        <section class="faq-heading">
+            <span class="eyebrow">Help Centre</span>
+            <h1>Frequently Asked Questions</h1>
+            <p>
+                Find answers to common questions about shopping,
+                orders, payments, delivery and returns.
+            </p>
+        </section>
+
+        <div class="faq-search">
+            <input
+                type="search"
+                id="faqSearch"
+                placeholder="Search your question..."
+                aria-label="Search frequently asked questions">
+        </div>
+
+        <section class="faq-list" id="faqList">
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>1. How can I track my order?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        Keep your order ID after checkout. You can use the order
+                        details page to view the order information currently
+                        available in ShopKart. If you need additional assistance,
+                        visit our Contact page and include your order ID.
+                    </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>2. What payment methods are accepted?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        Available payment options are shown during checkout.
+                        ShopKart's current payment flow is a demonstration;
+                        it does not process real payments. Do not enter actual
+                        card details, UPI PINs or banking passwords.
+                    </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>3. How long does delivery take?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        Delivery timelines depend on the delivery arrangements
+                        for your order. ShopKart currently does not provide a
+                        verified delivery estimate, so please contact support
+                        for assistance with a specific order.
+                    </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>4. Can I cancel my order?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        Order cancellation is not currently available through
+                        a dedicated self-service feature. Contact ShopKart
+                        support with your order ID to discuss your request.
+                    </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>5. What is the return and refund policy?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        Please contact ShopKart support with your order details
+                        before assuming a return or refund is available.
+                        The return and refund process has not yet been configured
+                        as an automated feature.
+                    </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>6. How can I contact customer support?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        Visit our Contact page and submit your name, email,
+                        subject and message. Your message will be saved in
+                        ShopKart's contact database for review.
+                    </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>7. Do I need an account to shop?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        You can browse products without logging in. Creating
+                        an account lets you access the account features
+                        currently available in ShopKart.
+                    </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" type="button" aria-expanded="false">
+                    <span>8. How can I get help with a product?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" hidden>
+                    <p>
+                        Visit the Contact page, select Product Enquiry,
+                        and describe the product and your question.
+                    </p>
+                </div>
+            </article>
+
+            <p class="faq-empty" id="faqEmpty" hidden>
+                No matching questions found. Try another search.
+            </p>
+
+        </section>
+
+        <section class="faq-contact">
+            <h2>Still need help?</h2>
+            <p>
+                Can't find the answer you're looking for?
+                Send us a message and tell us how we can help.
+            </p>
+            <a href="{{ url_for('contact') }}">Contact Us</a>
+        </section>
+
+    </main>
+
+    <script>
+        const faqQuestions = document.querySelectorAll(".faq-question");
+        const faqSearch = document.getElementById("faqSearch");
+        const faqItems = document.querySelectorAll(".faq-item");
+        const faqEmpty = document.getElementById("faqEmpty");
+
+        faqQuestions.forEach((button) => {
+            button.addEventListener("click", () => {
+                const answer = button.nextElementSibling;
+                const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+                button.setAttribute("aria-expanded", String(!isExpanded));
+                answer.hidden = isExpanded;
+            });
+        });
+
+        faqSearch.addEventListener("input", () => {
+            const query = faqSearch.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            faqItems.forEach((item) => {
+                const matches = item.textContent.toLowerCase().includes(query);
+                item.hidden = !matches;
+
+                if (matches) {
+                    visibleCount++;
+                }
+            });
+
+            faqEmpty.hidden = visibleCount !== 0;
+        });
+    </script>
+
+</body>
+</html>

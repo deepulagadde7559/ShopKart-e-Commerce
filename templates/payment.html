@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment | ShopKart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .payment-wrapper {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .payment-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .payment-notice {
+            background: #fff7e6;
+            border: 1px solid #f0d59a;
+            color: #765414;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .payment-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .payment-card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .payment-subtitle {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .payment-methods {
+            display: grid;
+            gap: 12px;
+            margin: 22px 0;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .payment-method:hover {
+            border-color: #176b57;
+        }
+
+        .payment-method:has(input:checked) {
+            border-color: #176b57;
+            background: #f0faf6;
+        }
+
+        .payment-method input {
+            accent-color: #176b57;
+            width: 18px;
+            height: 18px;
+        }
+
+        .method-name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .method-description {
+            display: block;
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .payment-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 20px;
+            margin-top: 24px;
+            font-size: 17px;
+        }
+
+        .payment-total strong {
+            font-size: 25px;
+            color: #176b57;
+        }
+
+        .demo-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .demo-button {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .success-button {
+            background: #176b57;
+            color: white;
+        }
+
+        .success-button:hover {
+            background: #125443;
+        }
+
+        .failure-button {
+            background: #ffffff;
+            color: #b42318;
+            border: 1px solid #d92d20;
+        }
+
+        .failure-button:hover {
+            background: #fff5f5;
+        }
+
+        .payment-footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+            margin-top: 22px;
+            line-height: 1.7;
+        }
+
+        .payment-message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 600px) {
+            .payment-wrapper {
+                margin: 20px auto;
+                padding: 12px;
+            }
+
+            .payment-card {
+                padding: 20px;
+            }
+
+            .demo-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="payment-wrapper">
+
+        <header class="payment-header">
+            <h1>Secure Checkout</h1>
+            <p>Complete your ShopKart demo order.</p>
+        </header>
+
+        <div class="payment-notice">
+            <strong>College Project — Demo Payment</strong><br>
+            This is a payment simulation only. No real money will be charged.
+            Do not enter actual card, bank, or UPI details.
+        </div>
+
+        <section class="payment-card">
+            <h2>Choose Payment Method</h2>
+            <p class="payment-subtitle">
+                Select a payment option for your order.
+            </p>
+
+            <form id="paymentForm">
+                <div class="payment-methods">
+
+                    <label class="payment-method">
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="UPI"
+                               checked>
+                        <span>
+                            <span class="method-name">UPI</span>
+                            <span class="method-description">
+                                Demo UPI payment
+                            </span>
+                        </span>
+                    </label>
+
+                    <label class="payment-method">
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="CARD">
+                        <span>
+                            <span class="method-name">
+                                Debit / Credit Card
+                            </span>
+                            <span class="method-description">
+                                Simulated card payment — no card details required
+                            </span>
+                        </span>
+                    </label>
+
+                    <label class="payment-method">
+                        <input type="radio"
+                               name="paymentMethod"
+                               value="NET_BANKING">
+                        <span>
+                            <span class="method-name">Net Banking</span>
+                            <span class="method-description">
+                                Demo internet banking payment
+                            </span>
+                        </span>
+                    </label>
+
+                </div>
+
+                <div class="payment-total">
+                    <span>Order ID: {{ order_id }}</span>
+                    <strong id="orderTotal">Loading...</strong>
+                </div>
+
+                <div class="demo-actions">
+                    <button type="button"
+                            class="demo-button success-button"
+                            id="simulateSuccess">
+                        Simulate Successful Payment
+                    </button>
+
+                    <button type="button"
+                            class="demo-button failure-button"
+                            id="simulateFailure">
+                        Simulate Failed Payment
+                    </button>
+                </div>
+
+                <div id="paymentMessage"
+                     class="payment-message"
+                     role="status"></div>
+            </form>
+        </section>
+
+        <footer class="payment-footer">
+            Demo environment only • No real payment processing<br>
+            ShopKart — Student E-Commerce Project
+        </footer>
+
+    </main>
+
+    
+<script>
+    window.SHOPKART_ORDER_ID = {{ order_id | tojson }};
+</script>
+
+
+    <script src="{{ url_for('static', filename='js/payment.js') }}"></script>
+</body>
+</html>

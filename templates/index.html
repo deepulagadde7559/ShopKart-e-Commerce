@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShopKart | Everyday, Well Chosen</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="announcement-bar">
+        A better kind of everyday shopping · Free delivery over ₹999
+    </div>
+
+    <header class="navbar">
+
+        <a href="/" class="logo">shopkart<span>.</span></a>
+
+        <nav class="nav-links">
+            <a href="#products">Shop all</a>
+            <a href="#categories">Accessories</a>
+            <a href="#categories">Home & Living</a>
+            <a href="#categories">Outdoors</a>
+        </nav>
+
+        <div class="nav-actions">
+            
+            <a href="{{ url_for('wishlist') }}" aria-label="Wishlist" class="navbar-wishlist">
+    <span aria-hidden="true">♡</span>
+    <span class="wishlist-navbar-count" id="navbarWishlistCount">0</span>
+</a>
+            {% if session.get('user_id') %}
+    <div class="account-menu">
+        <span class="account-welcome">
+            👤 Welcome, {{ session.get('user_name') }}
+        </span>
+
+        <a href="{{ url_for('account') }}" class="account-link">
+            My Account
+        </a>
+
+        <form method="POST"
+              action="{{ url_for('logout') }}"
+              class="logout-form">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+{% else %}
+    <div class="account-menu">
+        <a href="{{ url_for('login') }}" class="account-link">
+            👤 Login
+        </a>
+
+        <a href="{{ url_for('register') }}" class="account-link">
+            Create Account
+        </a>
+    </div>
+{% endif %}
+            <a href="/cart" class="cart-link" aria-label="Shopping bag">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+    >
+        <path d="M5 8h14l1 13H4L5 8Z"></path>
+        <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+    </svg>
+    <span class="cart-count" id="cartCount">0</span>
+</a>
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">GOOD THINGS FOR EVERYDAY LIVING</p>
+
+                <h1>
+                    Everyday,<br>
+                    <span>well chosen.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Thoughtful finds for the little things that make
+                    everyday life better. Discover useful products
+                    chosen with care.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">
+                        Find your favorites →
+                    </a>
+
+                    <a href="#about" class="btn btn-secondary">
+                        Why ShopKart?
+                    </a>
+                </div>
+
+                <p class="hero-note">
+                    ✓ Thoughtfully selected
+                    &nbsp;&nbsp; ✓ Straightforward pricing
+                </p>
+
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-circle"></div>
+
+                <div class="visual-product">
+                    <div class="product-shape"></div>
+                </div>
+
+                <div class="visual-note">
+                    <strong>A good find should</strong>
+                    <p>feel like a good find.</p>
+                    <small>Meet the collection →</small>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="categories section" id="categories">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">FIND YOUR NEXT FAVORITE</p>
+                    <h2>A good place to start</h2>
+                </div>
+
+                <a href="#products" class="text-link">
+                    All departments →
+                </a>
+            </div>
+
+            <div class="category-grid">
+
+                <a href="#products" class="category-card category-one">
+                    <span class="category-icon">✦</span>
+                    <h3>Accessories</h3>
+                    <p>Small things, big difference</p>
+                </a>
+
+                <a href="#products" class="category-card category-two">
+                    <span class="category-icon">⌂</span>
+                    <h3>Home & Living</h3>
+                    <p>Make your space feel right</p>
+                </a>
+
+                <a href="#products" class="category-card category-three">
+                    <span class="category-icon">☀</span>
+                    <h3>Outdoors</h3>
+                    <p>Ready for the everyday</p>
+                </a>
+
+                <a href="#products" class="category-card category-four">
+                    <span class="category-icon">⌁</span>
+                    <h3>Tech</h3>
+                    <p>Useful little upgrades</p>
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="products section" id="products">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR NEXT GREAT FIND</p>
+                    <h2>Loved for a reason.</h2>
+                </div>
+
+                <a href="#products" class="text-link">View all →</a>
+            </div>
+
+	<div class="product-controls">
+
+    <div class="search-box">
+        <input
+            type="search"
+            id="productSearch"
+            placeholder="Search products..."
+            aria-label="Search products"
+        >
+    </div>
+
+    <div class="filter-options">
+
+        <div class="custom-category-dropdown" id="customCategoryDropdown">
+
+    <button
+        type="button"
+        class="category-dropdown-trigger"
+        id="categoryDropdownButton"
+        aria-haspopup="true"
+        aria-expanded="false"
+    >
+        <span id="selectedCategoryLabel">All Categories</span>
+
+        <svg
+            class="category-dropdown-arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+        >
+            <path d="m7 10 5 5 5-5"></path>
+        </svg>
+    </button>
+
+    <div
+        class="category-dropdown-menu"
+        id="categoryDropdownMenu"
+        role="group"
+        aria-label="Product categories"
+        hidden
+    >
+        <button type="button" class="category-dropdown-option active" data-category="all">
+            All Categories
+        </button>
+
+        <button type="button" class="category-dropdown-option" data-category="Electronics">
+            Electronics
+        </button>
+
+        <button type="button" class="category-dropdown-option" data-category="Home & Kitchen">
+            Home &amp; Kitchen
+        </button>
+
+        <button type="button" class="category-dropdown-option" data-category="Accessories">
+            Accessories
+        </button>
+    </div>
+
+</div>
+
+        <div class="custom-sort-dropdown" id="customSortDropdown">
+
+    <button
+        type="button"
+        class="sort-dropdown-trigger"
+        id="sortDropdownButton"
+        aria-haspopup="true"
+        aria-expanded="false"
+    >
+        <span id="selectedSortLabel">Sort by: Featured</span>
+
+        <svg
+            class="sort-dropdown-arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+        >
+            <path d="m7 10 5 5 5-5"></path>
+        </svg>
+    </button>
+
+    <div
+        class="sort-dropdown-menu"
+        id="sortDropdownMenu"
+        role="group"
+        aria-label="Sort products by price"
+        hidden
+    >
+        <button
+            type="button"
+            class="sort-dropdown-option active"
+            data-sort="default"
+        >
+            Sort by: Featured
+        </button>
+
+        <button
+            type="button"
+            class="sort-dropdown-option"
+            data-sort="low-high"
+        >
+            Price: Low to High
+        </button>
+
+        <button
+            type="button"
+            class="sort-dropdown-option"
+            data-sort="high-low"
+        >
+            Price: High to Low
+        </button>
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
+<p id="noProductsMessage" class="no-products-message" hidden>
+    No products found. Try another search or category.
+</p>
+
+<div class="product-grid">
+
+    <!-- Product 1: Wireless Headphones -->
+    <article class="product-card">
+        <div class="product-image image-one">
+
+            <span class="product-label">BEST SELLER</span>
+
+            <button
+                type="button"
+                class="wishlist-button"
+                data-product-id="1"
+                aria-label="Add Wireless Headphones to wishlist"
+                aria-pressed="false"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    width="21"
+                    height="21"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path>
+                </svg>
+            </button>
+
+            <a
+    href="{{ url_for('product_details', product_id=1) }}"
+    class="product-details-link"
+    aria-label="View Wireless Headphones details"
+>
+    <img
+        src="{{ url_for('static', filename='images/headphones.jpg') }}"
+        alt="Wireless Headphones"
+    >
+</a>
+
+        </div>
+
+        <div class="product-info">
+            <p class="product-category">TECH</p>
+
+            <h3>
+    <a
+        href="{{ url_for('product_details', product_id=1) }}"
+        class="product-details-link"
+    >
+        Wireless Headphones
+    </a>
+</h3>
+
+            <p class="product-description">Sound for every day</p>
+
+            <div class="product-bottom">
+                <strong>₹1,499</strong>
+                <span class="rating">★ 4.8</span>
+            </div>
+
+            <button class="add-button" type="button">
+                Add to bag +
+            </button>
+        </div>
+    </article>
+
+
+    <!-- Product 2: Ceramic Coffee Mug -->
+    <article class="product-card">
+        <div class="product-image image-two">
+
+            <button
+                type="button"
+                class="wishlist-button"
+                data-product-id="2"
+                aria-label="Add Ceramic Coffee Mug to wishlist"
+                aria-pressed="false"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    width="21"
+                    height="21"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path>
+                </svg>
+            </button>
+
+            <a
+    href="{{ url_for('product_details', product_id=2) }}"
+    class="product-details-link"
+    aria-label="View Ceramic Coffee Mug details"
+>
+    <img
+        src="{{ url_for('static', filename='images/mug.jpg') }}"
+        alt="Ceramic Coffee Mug"
+    >
+</a>
+
+        </div>
+
+        <div class="product-info">
+            <p class="product-category">HOME &amp; LIVING</p>
+
+            <h3>
+    <a
+        href="{{ url_for('product_details', product_id=2) }}"
+        class="product-details-link"
+    >
+        Ceramic Coffee Mug
+    </a>
+</h3>
+
+            <p class="product-description">Your morning ritual</p>
+
+            <div class="product-bottom">
+                <strong>₹399</strong>
+                <span class="rating">★ 4.6</span>
+            </div>
+
+            <button class="add-button" type="button">
+                Add to bag +
+            </button>
+        </div>
+    </article>
+
+
+    <!-- Product 3: Travel Water Bottle -->
+    <article class="product-card">
+        <div class="product-image image-three">
+
+            <button
+                type="button"
+                class="wishlist-button"
+                data-product-id="3"
+                aria-label="Add Travel Water Bottle to wishlist"
+                aria-pressed="false"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    width="21"
+                    height="21"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path>
+                </svg>
+            </button>
+
+            <a
+    href="{{ url_for('product_details', product_id=3) }}"
+    class="product-details-link"
+    aria-label="View Travel Water Bottle details"
+>
+    <img
+        src="{{ url_for('static', filename='images/waterbottle.jpg') }}"
+        alt="Travel Water Bottle"
+    >
+</a>
+
+        </div>
+
+        <div class="product-info">
+            <p class="product-category">OUTDOORS</p>
+
+            <h3>
+    <a
+        href="{{ url_for('product_details', product_id=3) }}"
+        class="product-details-link"
+    >
+        Travel Water Bottle
+    </a>
+</h3>
+
+            <p class="product-description">Take it everywhere</p>
+
+            <div class="product-bottom">
+                <strong>₹599</strong>
+                <span class="rating">★ 4.7</span>
+            </div>
+
+            <button class="add-button" type="button">
+                Add to bag +
+            </button>
+        </div>
+    </article>
+
+
+    <!-- Product 4: Everyday Carry Tote -->
+    <article class="product-card">
+        <div class="product-image image-four">
+
+            <button
+                type="button"
+                class="wishlist-button"
+                data-product-id="4"
+                aria-label="Add Everyday Carry Tote to wishlist"
+                aria-pressed="false"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    width="21"
+                    height="21"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path>
+                </svg>
+            </button>
+
+            <a
+    href="{{ url_for('product_details', product_id=4) }}"
+    class="product-details-link"
+    aria-label="View Everyday Carry Tote details"
+>
+    <img
+        src="{{ url_for('static', filename='images/tote.jpg') }}"
+        alt="Everyday Carry Tote"
+    >
+</a>
+
+        </div>
+
+        <div class="product-info">
+            <p class="product-category">ACCESSORIES</p>
+
+            <h3>
+    <a
+        href="{{ url_for('product_details', product_id=4) }}"
+        class="product-details-link"
+    >
+        Everyday Carry Tote
+    </a>
+</h3>
+
+            <p class="product-description">Simple and useful</p>
+
+            <div class="product-bottom">
+                <strong>₹799</strong>
+                <span class="rating">★ 4.5</span>
+            </div>
+
+            <button class="add-button" type="button">
+                Add to bag +
+            </button>
+        </div>
+    </article>
+
+</div>
+
+        </section>
+
+        <section class="story section" id="about">
+
+            <div class="story-banner">
+                <p class="eyebrow">A LITTLE LESS, A LITTLE BETTER</p>
+                <h2>Less noise.<br>More good stuff.</h2>
+                <p>
+                    Useful things, carefully chosen for real life.
+                    No endless scrolling, just thoughtful finds.
+                </p>
+                <a href="#categories" class="story-link">
+                    Our point of view →
+                </a>
+            </div>
+
+            <div class="story-feature">
+                <p class="eyebrow">MADE FOR EVERYDAY LIFE</p>
+                <h2>New, and already useful.</h2>
+
+                <div class="mini-products">
+                    <div class="mini-product">
+    <div class="mini-image">
+        <img src="{{ url_for('static', filename='images/headphones.jpg') }}"
+             alt="Wireless Headphones">
+    </div>
+    <h3>Wireless Headphones</h3>
+    <strong>₹1,499</strong>
+</div>
+
+                    <div class="mini-product">
+    <div class="mini-image">
+        <img src="{{ url_for('static', filename='images/mug.jpg') }}"
+             alt="Ceramic Coffee Mug">
+    </div>
+    <h3>Ceramic Coffee Mug</h3>
+    <strong>₹399</strong>
+</div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="closing-banner">
+            <p class="eyebrow">GOOD THINGS. NO GUESSWORK.</p>
+            <h2>Thoughtful picks. Clear prices. Real help.</h2>
+            <a href="#products" class="btn btn-secondary">
+                Explore the shop →
+            </a>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+                <a href="/" class="footer-logo">shopkart<span>.</span></a>
+                <p>Useful things. Fair prices.<br>A real person if you need one.</p>
+            </div>
+
+            <div class="footer-column">
+                <h4>EXPLORE</h4>
+                <a href="#products">Shop all</a>
+                <a href="{{ url_for('about') }}">About us</a>
+                <a href="#categories">Categories</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>HERE TO HELP</h4>
+                <a href="/contact">Contact</a>
+                <a href="{{ url_for('faqs') }}">FAQs</a>
+                <a href="{{ url_for('shipping') }}">Shipping &amp; returns</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>THE DETAILS</h4>
+                <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
+                <a href="{{ url_for('terms') }}">Terms &amp; Conditions</a>
+                <a href="/login">Your account</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 ShopKart Market. Made for everyday life.
+        </div>
+
+    </footer>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping &amp; Returns | ShopKart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .shipping-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 45px 24px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .shipping-header {
+            text-align: center;
+            padding: 40px 25px;
+            background: #f7f8fa;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .shipping-header h1 {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .shipping-header p {
+            color: #666;
+            margin: 0;
+        }
+
+        .shipping-section {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .shipping-section h2 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .shipping-section p,
+        .shipping-section li {
+            color: #555;
+        }
+
+        .shipping-section ul {
+            padding-left: 24px;
+        }
+
+        .shipping-note {
+            background: #f7f8fa;
+            border-left: 4px solid #333;
+            padding: 16px 20px;
+            margin-top: 25px;
+            border-radius: 5px;
+        }
+
+        .shipping-contact {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 11px 22px;
+            background: #222;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .shipping-contact:hover {
+            background: #444;
+        }
+
+        @media (max-width: 600px) {
+            .shipping-page {
+                padding: 25px 16px;
+            }
+
+            .shipping-header h1 {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="shipping-page">
+
+        <header class="shipping-header">
+            <h1>Shipping &amp; Returns</h1>
+            <p>Important information about delivery, cancellations, and returns at ShopKart.</p>
+        </header>
+
+        <section class="shipping-section">
+            <h2>1. Order Processing</h2>
+            <p>
+                After an order is submitted, review the order details and confirmation
+                shown on the website. Processing times may vary. An order placed on
+                this demonstration website does not automatically mean a real product
+                will be packed or shipped.
+            </p>
+        </section>
+
+        <section class="shipping-section">
+            <h2>2. Shipping and Delivery</h2>
+            <p>
+                Actual delivery availability, shipping charges, courier services,
+                and delivery estimates must be confirmed before a real purchase.
+                Any delivery information shown in the current project should be
+                treated as illustrative unless a genuine shipping service is integrated.
+            </p>
+            <ul>
+                <li>Check your order details before checkout.</li>
+                <li>Provide accurate delivery information wherever requested.</li>
+                <li>Delivery dates cannot be guaranteed unless confirmed by the seller or courier.</li>
+            </ul>
+        </section>
+
+        <section class="shipping-section">
+            <h2>3. Shipping Charges</h2>
+            <p>
+                The website may display delivery charges during checkout. Review
+                the final order summary before submitting an order. Displayed charges
+                are part of the project demonstration unless real fulfilment services
+                and commercial terms have been established.
+            </p>
+        </section>
+
+        <section class="shipping-section">
+            <h2>4. Order Cancellation</h2>
+            <p>
+                Cancellation options depend on the order status and the seller's
+                actual policies. Contact the ShopKart team to ask about an order.
+                Do not assume that an order has been cancelled unless you receive
+                confirmation through an implemented order-management process.
+            </p>
+        </section>
+
+        <section class="shipping-section">
+            <h2>5. Returns and Exchanges</h2>
+            <p>
+                For real purchases, eligibility for returns or exchanges should be
+                confirmed before ordering, including any time limits, product
+                condition requirements, and exclusions. This project does not
+                promise a real return or exchange service unless one is implemented.
+            </p>
+        </section>
+
+        <section class="shipping-section">
+            <h2>6. Refunds</h2>
+            <p>
+                Refund availability and timing depend on the seller's confirmed
+                policy and the payment method used. Since the current website may
+                use demonstration payment functionality, do not assume that a real
+                payment or refund has occurred.
+            </p>
+        </section>
+
+        <section class="shipping-section">
+            <h2>7. Damaged or Incorrect Items</h2>
+            <p>
+                For a real order, contact the seller promptly if an item arrives
+                damaged, defective, or different from what was ordered. Include
+                your order reference and relevant details, but do not send passwords
+                or payment credentials.
+            </p>
+        </section>
+
+        <section class="shipping-section">
+            <h2>8. Contact Us</h2>
+            <p>
+                If you have questions about shipping, cancellations, returns, or
+                refunds, contact the ShopKart team.
+            </p>
+            <a href="{{ url_for('contact') }}" class="shipping-contact">Contact Us</a>
+        </section>
+
+        <div class="shipping-note">
+            <strong>Important:</strong> This is a starter policy for a demonstration
+            project, not a promise of real shipping or returns. Before launching
+            ShopKart commercially, replace these details with your actual delivery,
+            cancellation, return, and refund policies.
+        </div>
+
+    </main>
+
+</body>
+</html>

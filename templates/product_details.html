@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.name }} | ShopKart</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+        .product-details-page {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 35px 24px 70px;
+        }
+
+        .product-breadcrumb {
+            margin-bottom: 28px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .product-breadcrumb a {
+            color: #245c43;
+            text-decoration: none;
+        }
+
+        .product-details-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 55px;
+            align-items: start;
+        }
+
+        .product-details-image {
+            position: relative;
+            overflow: hidden;
+            background: #f7f7f4;
+            border-radius: 14px;
+            min-height: 400px;
+        }
+
+        .product-details-image img {
+            display: block;
+            width: 100%;
+            height: 450px;
+            object-fit: contain;
+        }
+
+        .product-details-info {
+            padding: 15px 0;
+        }
+
+        .product-details-category {
+            margin: 0 0 14px;
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .product-details-title {
+            margin: 0 0 16px;
+            color: #222;
+            font-size: 34px;
+            line-height: 1.25;
+        }
+
+        .product-details-rating {
+            margin-bottom: 22px;
+            color: #b8860b;
+            font-size: 15px;
+        }
+
+        .product-details-price {
+            display: block;
+            margin-bottom: 20px;
+            color: #245c43;
+            font-size: 29px;
+        }
+
+        .product-details-description {
+            margin-bottom: 26px;
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .product-quantity-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .product-quantity {
+            width: 100px;
+            height: 43px;
+            margin-bottom: 22px;
+            padding: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 15px;
+        }
+
+        .product-details-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .product-details-add-button,
+        .product-details-wishlist-button {
+            min-height: 48px;
+            padding: 12px 22px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .product-details-add-button {
+            flex: 1;
+            border: 1px solid #245c43;
+            background: #245c43;
+            color: #fff;
+        }
+
+        .product-details-add-button:hover {
+            background: #194632;
+        }
+
+        .product-details-wishlist-button {
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #444;
+        }
+
+        .product-details-wishlist-button:hover,
+        .product-details-wishlist-button.active {
+            border-color: #e53950;
+            color: #e53950;
+            background: #fff0f0;
+        }
+
+        .product-details-benefits {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid #eee;
+        }
+
+        .product-benefit {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .product-benefit strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .product-details-page {
+                padding: 25px 16px 45px;
+            }
+
+            .product-details-layout {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .product-details-image {
+                min-height: 300px;
+            }
+
+            .product-details-image img {
+                height: 320px;
+            }
+
+            .product-details-title {
+                font-size: 27px;
+            }
+
+            .product-details-info {
+                padding-top: 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .product-details-actions {
+                flex-direction: column;
+            }
+
+            .product-details-add-button,
+            .product-details-wishlist-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="product-details-page">
+
+        <nav class="product-breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('home') }}">Home</a>
+            &nbsp; / &nbsp;
+            <span>{{ product.name }}</span>
+        </nav>
+
+        <section class="product-details-layout">
+
+            <!-- Product Image -->
+            <div class="product-details-image">
+                <img
+                    src="{{ url_for('static', filename=product.image) }}"
+                    alt="{{ product.name }}"
+                >
+            </div>
+
+            <!-- Product Information -->
+            <div class="product-details-info">
+
+                <p class="product-details-category">
+                    {{ product.category }}
+                </p>
+
+                <h1 class="product-details-title">
+                    {{ product.name }}
+                </h1>
+
+                <div class="product-details-rating">
+                    ★★★★★
+                    <span style="color: #777;">Customer favourite</span>
+                </div>
+
+                <strong class="product-details-price">
+                    ₹{{ "{:,}".format(product.price) }}
+                </strong>
+
+                <p class="product-details-description">
+                    {{ product.description }}
+                </p>
+
+                <label
+                    for="productQuantity"
+                    class="product-quantity-label"
+                >
+                    Quantity
+                </label>
+
+                <input
+                    type="number"
+                    id="productQuantity"
+                    class="product-quantity"
+                    value="1"
+                    min="1"
+                    max="10"
+                >
+
+                <div class="product-details-actions">
+
+                    <button
+                        type="button"
+                        id="detailsAddToCart"
+                        class="product-details-add-button"
+                    >
+                        Add to Bag +
+                    </button>
+
+                    <button
+                        type="button"
+                        id="detailsWishlistButton"
+                        class="product-details-wishlist-button"
+                        data-product-id="{{ product.id }}"
+                        aria-pressed="false"
+                    >
+                        ♡ Add to Wishlist
+                    </button>
+
+                </div>
+
+                <div class="product-details-benefits">
+
+                    <div class="product-benefit">
+                        <strong>🚚 Delivery</strong>
+                        Delivery charges calculated at checkout.
+                    </div>
+
+                    <div class="product-benefit">
+                        <strong>🔒 Secure Checkout</strong>
+                        Continue to checkout to complete your order.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Current product details supplied by Flask
+        const currentProduct = {
+            id: {{ product.id | tojson }},
+            name: {{ product.name | tojson }},
+            price: {{ product.price | tojson }},
+            image: {{ product.image | tojson }}
+        };
+
+        const cartKey = "shopkartCart";
+        const wishlistKey = "shopkartWishlist";
+
+        // Read saved data safely
+        function readStoredArray(key) {
+            try {
+                const data = JSON.parse(localStorage.getItem(key) || "[]");
+                return Array.isArray(data) ? data : [];
+            } catch (error) {
+                console.error("Unable to read stored data:", error);
+                return [];
+            }
+        }
+
+        // Add selected quantity to the existing cart
+        document.getElementById("detailsAddToCart")
+            .addEventListener("click", function () {
+                const quantityInput =
+                    document.getElementById("productQuantity");
+
+                const quantity = Number(quantityInput.value);
+
+                if (
+                    !Number.isInteger(quantity) ||
+                    quantity < 1 ||
+                    quantity > 10
+                ) {
+                    alert("Please select a quantity between 1 and 10.");
+                    return;
+                }
+
+                const cart = readStoredArray(cartKey);
+
+                const existingItem = cart.find(item =>
+                    String(item.id) === String(currentProduct.id)
+                );
+
+                if (existingItem) {
+                    existingItem.quantity =
+                        (Number(existingItem.quantity) || 1) + quantity;
+                } else {
+                    cart.push({
+                        id: currentProduct.id,
+                        name: currentProduct.name,
+                        price: currentProduct.price,
+                        image: currentProduct.image,
+                        quantity: quantity
+                    });
+                }
+
+                try {
+                    localStorage.setItem(cartKey, JSON.stringify(cart));
+                    alert(currentProduct.name + " added to your bag!");
+                } catch (error) {
+                    console.error("Unable to save cart:", error);
+                    alert("Unable to update your bag. Please try again.");
+                }
+            });
+
+        // Wishlist button
+        const wishlistButton =
+            document.getElementById("detailsWishlistButton");
+
+        function updateDetailsWishlistButton() {
+            const wishlist = readStoredArray(wishlistKey);
+            const isSaved = wishlist.map(String).includes(
+                String(currentProduct.id)
+            );
+
+            wishlistButton.classList.toggle("active", isSaved);
+            wishlistButton.setAttribute("aria-pressed", String(isSaved));
+            wishlistButton.textContent = isSaved
+                ? "♥ Remove from Wishlist"
+                : "♡ Add to Wishlist";
+        }
+
+        wishlistButton.addEventListener("click", function () {
+            let wishlist = readStoredArray(wishlistKey);
+            const productId = String(currentProduct.id);
+
+            if (wishlist.map(String).includes(productId)) {
+                wishlist = wishlist.filter(
+                    id => String(id) !== productId
+                );
+            } else {
+                wishlist.push(productId);
+            }
+
+            try {
+                localStorage.setItem(
+                    wishlistKey,
+                    JSON.stringify(wishlist)
+                );
+
+                updateDetailsWishlistButton();
+            } catch (error) {
+                console.error("Unable to save wishlist:", error);
+                alert("Unable to update wishlist. Please try again.");
+            }
+        });
+
+        updateDetailsWishlistButton();
+    </script>
+
+</body>
+</html>

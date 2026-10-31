@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | ShopKart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .privacy-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 45px 24px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .privacy-header {
+            padding: 40px 25px;
+            text-align: center;
+            background: #f7f8fa;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .privacy-header h1 {
+            color: #222;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .privacy-header p {
+            color: #666;
+            margin: 0;
+        }
+
+        .privacy-section {
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .privacy-section h2 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .privacy-section p,
+        .privacy-section li {
+            color: #555;
+        }
+
+        .privacy-section ul {
+            padding-left: 24px;
+        }
+
+        .privacy-note {
+            background: #f7f8fa;
+            border-left: 4px solid #333;
+            padding: 16px 20px;
+            margin-top: 25px;
+            border-radius: 5px;
+        }
+
+        .privacy-contact {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 11px 22px;
+            background: #222;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .privacy-contact:hover {
+            background: #444;
+        }
+
+        @media (max-width: 600px) {
+            .privacy-page {
+                padding: 25px 16px;
+            }
+
+            .privacy-header h1 {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="privacy-page">
+
+        <header class="privacy-header">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy matters to us. Learn how ShopKart handles information.</p>
+        </header>
+
+        <section class="privacy-section">
+            <h2>1. Introduction</h2>
+            <p>
+                Welcome to ShopKart. This Privacy Policy explains how information
+                may be collected, used, and protected when you use our website.
+                By using ShopKart, you acknowledge this policy.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>2. Information We Collect</h2>
+            <p>Depending on the features you use, ShopKart may process information such as:</p>
+            <ul>
+                <li>Account details, such as your name and email address.</li>
+                <li>Contact form details and messages you submit.</li>
+                <li>Order information needed to process and display your order.</li>
+                <li>Basic technical information needed to operate and troubleshoot the website.</li>
+            </ul>
+            <p>
+                Do not submit passwords, card numbers, banking credentials, or other
+                sensitive information through the contact form.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>3. How We Use Information</h2>
+            <p>Information may be used to:</p>
+            <ul>
+                <li>Create and manage customer accounts.</li>
+                <li>Support shopping, checkout, and order-related functions.</li>
+                <li>Respond to customer questions and feedback.</li>
+                <li>Maintain website security and improve functionality.</li>
+            </ul>
+        </section>
+
+        <section class="privacy-section">
+            <h2>4. Password and Account Security</h2>
+            <p>
+                ShopKart is designed to store account passwords using password
+                hashing rather than storing them as plain text. Users should
+                choose strong, unique passwords and keep their login details private.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>5. Cookies and Browser Storage</h2>
+            <p>
+                The website may use session cookies to support login and other
+                session-based features. Shopping cart information may also be
+                stored in your browser's local storage. Clearing browser storage
+                may remove locally saved cart information.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>6. Payments</h2>
+            <p>
+                If payment screens are provided as a demonstration, they do not
+                process real payments unless a genuine payment provider has been
+                separately integrated. Do not enter real payment credentials into
+                a demonstration payment form.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>7. Sharing and Retention</h2>
+            <p>
+                Information should only be accessed or shared when necessary to
+                operate the website, respond to requests, maintain security, or
+                comply with applicable legal requirements. Information should be
+                retained only for as long as reasonably necessary for its purpose.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>8. Data Security</h2>
+            <p>
+                Reasonable safeguards should be used to protect information.
+                However, no website or method of electronic storage can guarantee
+                absolute security.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>9. Your Choices</h2>
+            <p>
+                You can choose what information to submit through optional forms.
+                You may also contact the ShopKart team to ask questions about
+                information you have provided.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>10. Policy Updates</h2>
+            <p>
+                This policy may be updated when website features or information
+                practices change. Any revised version should be published on
+                this page with an updated effective date.
+            </p>
+        </section>
+
+        <section class="privacy-section">
+            <h2>11. Contact Us</h2>
+            <p>
+                If you have questions about this Privacy Policy, contact us
+                through the ShopKart Contact Us page.
+            </p>
+            <a href="{{ url_for('contact') }}" class="privacy-contact">Contact Us</a>
+        </section>
+
+        <div class="privacy-note">
+            <strong>Important:</strong> This is a starter policy template for the
+            ShopKart project. Before using the website commercially, review and
+            update it to accurately reflect your actual data practices and
+            applicable privacy laws.
+        </div>
+
+    </main>
+
+</body>
+</html>

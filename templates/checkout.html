@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | ShopKart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .checkout-page {
+            max-width: 1200px;
+            margin: 45px auto;
+            padding: 0 24px 60px;
+            color: #24382f;
+        }
+
+        .checkout-heading {
+            margin-bottom: 30px;
+        }
+
+        .checkout-heading h1 {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .checkout-heading p {
+            color: #777;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .checkout-card,
+        .checkout-summary {
+            background: #fff;
+            border: 1px solid #e8e8e3;
+            border-radius: 14px;
+            padding: 28px;
+        }
+
+        .checkout-card h2,
+        .checkout-summary h2 {
+            font-size: 22px;
+            margin: 0 0 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #deded8;
+            border-radius: 8px;
+            background: #fff;
+            color: #24382f;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #234d3a;
+            box-shadow: 0 0 0 2px rgba(35, 77, 58, 0.08);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .payment-note {
+            margin-top: 24px;
+            padding: 15px;
+            background: #f5f7f2;
+            border-radius: 8px;
+            color: #45634f;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .summary-product {
+            display: grid;
+            grid-template-columns: 64px 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-product img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #f5f5f0;
+        }
+
+        .summary-product h3 {
+            font-size: 14px;
+            margin: 0 0 6px;
+        }
+
+        .summary-product p {
+            margin: 0;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .summary-product-price {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 17px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .summary-total {
+            border-top: 1px solid #e5e5e0;
+            padding-top: 20px;
+            color: #24382f;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .place-order-button,
+        .back-to-cart-button {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .place-order-button {
+            background: #234d3a;
+            border: none;
+            color: #fff;
+            margin-top: 25px;
+        }
+
+        .place-order-button:hover {
+            background: #193b2b;
+        }
+
+        .back-to-cart-button {
+            background: #fff;
+            border: 1px solid #234d3a;
+            color: #234d3a;
+            margin-top: 12px;
+        }
+
+        .empty-checkout {
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .empty-checkout p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .checkout-error {
+            color: #b34343;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        @media (max-width: 850px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .checkout-page {
+                margin-top: 30px;
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .checkout-heading h1 {
+                font-size: 29px;
+            }
+
+            .checkout-card,
+            .checkout-summary {
+                padding: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="checkout-page">
+
+    <div class="checkout-heading">
+        <h1>Checkout</h1>
+        <p>Enter your delivery details to continue with your order.</p>
+    </div>
+
+    <div class="checkout-layout">
+
+        <section class="checkout-card">
+
+            <h2>Delivery Information</h2>
+
+            <form id="checkoutForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+                        <label for="customerName">Full Name *</label>
+                        <input
+                            type="text"
+                            id="customerName"
+                            name="customerName"
+                            placeholder="Enter your full name"
+                            minlength="2"
+                            maxlength="100"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="mobile">Mobile Number *</label>
+                        <input
+                            type="tel"
+                            id="mobile"
+                            name="mobile"
+                            placeholder="10-digit mobile number"
+                            inputmode="numeric"
+                            pattern="[6-9][0-9]{9}"
+                            maxlength="10"
+                            autocomplete="tel"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="address">Full Address *</label>
+                        <textarea
+                            id="address"
+                            name="address"
+                            placeholder="House number, street, area, landmark"
+                            maxlength="500"
+                            autocomplete="street-address"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            placeholder="Enter city"
+                            maxlength="100"
+                            autocomplete="address-level2"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state">State *</label>
+                        <select
+                            id="state"
+                            name="state"
+                            autocomplete="address-level1"
+                            required
+                        >
+                            <option value="">Select State</option>
+                            <option>Maharashtra</option>
+                            <option>Karnataka</option>
+                            <option>Goa</option>
+                            <option>Gujarat</option>
+                            <option>Madhya Pradesh</option>
+                            <option>Telangana</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Tamil Nadu</option>
+                            <option>Kerala</option>
+                            <option>Rajasthan</option>
+                            <option>Uttar Pradesh</option>
+                            <option>Delhi</option>
+                            <option>West Bengal</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pincode">PIN Code *</label>
+                        <input
+                            type="text"
+                            id="pincode"
+                            name="pincode"
+                            placeholder="6-digit PIN code"
+                            inputmode="numeric"
+                            pattern="[1-9][0-9]{5}"
+                            maxlength="6"
+                            autocomplete="postal-code"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="payment-note">
+                    <strong>Payment:</strong> Online payment and Cash on
+                    Delivery options will be configured in a later step.
+                    Do not enter any card details on this page.
+                </div>
+
+                <button
+                    type="submit"
+                    class="place-order-button"
+                    id="placeOrderButton"
+                >
+                    Place Order
+                </button>
+
+                <a href="/cart" class="back-to-cart-button">
+                    Back to Shopping Bag
+                </a>
+
+            </form>
+
+        </section>
+
+        <aside class="checkout-summary">
+
+            <h2>Your Order</h2>
+
+            <div id="checkoutItems">
+                <p>Loading order summary...</p>
+            </div>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="checkoutSubtotal">₹0</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span id="checkoutDelivery">₹0</span>
+            </div>
+
+            <div class="summary-row summary-total">
+                <span>Total</span>
+                <span id="checkoutTotal">₹0</span>
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
+
+</body>
+</html>
